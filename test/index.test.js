@@ -45,9 +45,9 @@ describe("IrcSocketFactory#createSocket(id,config)", function () {
         socket = factory.createSocket("test", {
             server: "irc.freenode.net",
             port: 6667,
-            nicknames: ["ISFTest", "SocketFactory"],
-            username: "ircsocket123",
-            realname: "Sample Bot"
+            nicknames: ["mocha42", "testing37", "travisBot"],
+            username: "sorry123",
+            realname: "Mocha Unit Test"
         });
         expect(socket).to.not.be.null;
     });
@@ -79,19 +79,19 @@ describe("IrcSocketFactory#createSocket(id,config)", function () {
         });
         socket.emit("data", "message");
     });
-    xit("should forward `close` event", function (done) {
-        // this test is disables since "close" would destroy the client
-        factory.once("close", function (id) {
+    // this test is disables since "close" would destroy the client, but we need it in further tests
+    /*it("should forward `close` event", (done:(error?:Error) => void) => {
+
+        factory.once("close", (id:string) => {
             try {
                 expect(id).to.equal("test");
                 done();
-            }
-            catch (exception) {
+            } catch (exception) {
                 done(exception);
             }
         });
         socket.emit("close");
-    });
+    });*/
     it("should forward `error` event", function (done) {
         factory.once("error", function (id, reason) {
             try {
@@ -104,6 +104,9 @@ describe("IrcSocketFactory#createSocket(id,config)", function () {
             }
         });
         socket.emit("error", "reason");
+    });
+    it("should prevent reusing an existing ID", function () {
+        expect(function () { return factory.createSocket("test", null); }).to.throw("You can't create a socket with an ID that is already in use!");
     });
 });
 describe("IrcSocketFactory#sockets", function () {
@@ -124,6 +127,9 @@ describe("IrcSocketFactory#destroySocket(id)", function () {
                 done(exception);
             }
         }, 500);
+    });
+    it("should ignore requests on invalid ids", function () {
+        factory.destroySocket("invalid");
     });
 });
 //# sourceMappingURL=index.test.js.map

@@ -49,9 +49,9 @@ describe("IrcSocketFactory#createSocket(id,config)", () => {
         socket = factory.createSocket("test", {
             server: "irc.freenode.net",
             port: 6667,
-            nicknames: ["ISFTest", "SocketFactory"],
-            username: "ircsocket123",
-            realname: "Sample Bot"
+            nicknames: ["mocha42", "testing37", "travisBot"],
+            username: "sorry123",
+            realname: "Mocha Unit Test"
         });
         expect(socket).to.not.be.null;
     });
@@ -85,8 +85,9 @@ describe("IrcSocketFactory#createSocket(id,config)", () => {
         socket.emit("data", "message");
     });
 
-    xit("should forward `close` event", (done:(error?:Error) => void) => {
-        // this test is disables since "close" would destroy the client
+    // this test is disables since "close" would destroy the client, but we need it in further tests
+    /*it("should forward `close` event", (done:(error?:Error) => void) => {
+
         factory.once("close", (id:string) => {
             try {
                 expect(id).to.equal("test");
@@ -96,7 +97,7 @@ describe("IrcSocketFactory#createSocket(id,config)", () => {
             }
         });
         socket.emit("close");
-    });
+    });*/
 
     it("should forward `error` event", (done:(error?:Error) => void) => {
         factory.once("error", (id:string, reason:string) => {
@@ -109,6 +110,10 @@ describe("IrcSocketFactory#createSocket(id,config)", () => {
             }
         });
         socket.emit("error", "reason");
+    });
+
+    it("should prevent reusing an existing ID", () => {
+        expect(() => factory.createSocket("test", null)).to.throw("You can't create a socket with an ID that is already in use!");
     });
 
 });
@@ -134,6 +139,10 @@ describe("IrcSocketFactory#destroySocket(id)", () => {
                 done(exception);
             }
         }, 500);
+    });
+
+    it("should ignore requests on invalid ids", () => {
+        factory.destroySocket("invalid");
     })
 
 });
