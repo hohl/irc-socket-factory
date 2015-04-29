@@ -1,6 +1,6 @@
 # IRC Socket Factory ##
 
-This NPM module is a helper build on [irc-socket by Havy](https://github.com/Havvy/irc-socket) to manage multiple persistent IRC sockets.
+This NPM module is a helper built on [irc-socket](https://github.com/Havvy/irc-socket) to manage multiple persistent IRC sockets.
 
 ## Installation ##
 
