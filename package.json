@@ -1,0 +1,32 @@
+{
+  "name": "irc-socket-factory",
+  "version": "0.1.0",
+  "description": "IRC library for managing multiple persistent connections",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hohl/irc-socket-factory.git"
+  },
+  "keywords": [
+    "irc",
+    "factory",
+    "socket",
+    "chat"
+  ],
+  "author": "Michael Hohl <me@michaelhohl.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hohl/irc-socket-factory/issues"
+  },
+  "homepage": "https://github.com/hohl/irc-socket-factory",
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4"
+  },
+  "dependencies": {
+    "irc-socket": "^3.0.2"
+  }
+}
